@@ -7,24 +7,25 @@
     <div class="guest-login">
       <div class="guest-login-description">Sign in</div>
       <div class="guest-form">
-        <form action="/login" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="authenticity_token" value="Js0QCv/yxSVTrTmRug3DSrUFdSb5SL10w1aL1eSO6M3wz7HggjQqZ57qrV1N7SveeCX3cFy9Hc/G5W8L8zoMjg==">
+        <%= form_tag('/login') do %>
+
           <div class="guest-form-divider">
-          <label for="session_username">Username</label>
-          <input type="text" name="session[username]" id="session_username" value="testuser">
+           <label for="session_username">Username</label>
+            <input type="text" name="session[username]" id="session_username" value="testuser">
           </div>
 
           <div class="guest-form-divider">
-          <label for="session_password">Password</label>
-          <input type="password" name="session[password]" id="session_password" value="testpassword">
+            <label for="session_password">Password</label>
+            <input type="password" name="session[password]" id="session_password" value="testpassword">
           </div>
 
           <div class="guest-form-divider">
-          <input type="submit" name="commit" value="Log in">
+           <input type="submit" name="commit" value="Log in">
           </div>
-        </form>
+        <% end %>
       </div>
       <div class="guest-signing">
-        <p>New user? <a href="/signup">Sign up now!</a></p>
+        <p>New user? <%= link_to "Sign up now!", signup_path %></p>
       </div>
     </div>
 
