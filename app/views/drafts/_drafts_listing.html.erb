@@ -1,0 +1,36 @@
+<div class="email-list-section main-middle-bar">
+  <div class="email-list-container">
+    <div class="sorting-selection top-bar">
+      <div class="sorting-container">
+        <input type="checkbox" class="sorting-toggle" id="sorting-toggle">
+        <label for="sorting-toggle" class="sorting-toggle-label">Sort by 
+          <span class="sorting-selector">
+            <%= session[:sorting] == 'newest' ? "Date - newest" : "Date - oldest" %>
+          </span>
+          <i class="fa fa-chevron-down sorting-chevron-icon" aria-hidden="true"></i>
+        </label>
+        <div class="sorting-hidden-nav">
+          <%= link_to_if_inactive_sort 'newest' %>
+          <%= link_to_if_inactive_sort 'oldest' %>
+        </div>
+      </div>
+    </div>
+
+    <div id="emailListScroll" class="email-list main-bar">
+
+    <% @drafts.each_with_index do |draft, i| %>
+      <%= link_to draft_path(draft), remote: true, id: "emailThumb#{i+1}", class: "email-thumb-link" do %>
+        <div id="draft-<%= draft.id %>" class="email-thumb-container <%= "email-thumb-active" if !@draft.nil? && draft.id == @draft.id %>">
+          <div class="email-descriptions">
+            <h4><%= draft.username %></h4>
+            <span class="date"><%= represent_date_of_email(draft.created_at) %></span>
+            <h5><%= draft.title %></h5>
+            <p><%= draft.message[0..30] unless draft.message.nil? %></p>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+    </div>
+
+  </div>
+</div>

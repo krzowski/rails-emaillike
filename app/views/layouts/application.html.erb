@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>EmailLike</title>
+  <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+  <%= csrf_meta_tags %>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+</head>
+<body>
+
+  <div class="container">
+
+    <% flash.each do |message_type, message| %>
+      <div class="alert alert-<%= message_type %> <%= 'alert-guest' unless logged_in? %>"><%= message %>
+        <div class="alert-close">x</div>
+      </div>
+    <% end %>
+
+    <%= render 'shared/navigation' if logged_in? %>
+ 
+    <%= yield %> 
+
+  </div>
+
+</body>
+</html>

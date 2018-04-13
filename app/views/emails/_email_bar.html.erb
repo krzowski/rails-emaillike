@@ -1,0 +1,22 @@
+<div class="email-options-bar top-bar">
+  <div class="email-activities">
+    <ul class="email-activities-icons">
+      <li class="email-activity-icon" title="Move to trash"><i class="fa fa-trash-o"></i></li>
+      <li class="email-activity-icon" title="Reply"><i class="fa fa-reply"></i></li>
+      <li class="email-activity-icon" title="Forward"><i class="fa fa-share"></i></li>
+      <li class="email-activity-icon" title="Options"><i class="fa fa-ellipsis-h"></i></li>
+    </ul>
+  </div>
+
+  <input type="checkbox" name="expand-search" id="expand-search">
+  <div class="search-in-email">
+    <div class="search-form">
+      <input id="search_email_message" class="search-input" type="text" placeholder="Search in messsage...">
+      <label for="expand-search" class="search-button">
+        <i class="fa fa-chevron-up"></i><i class="fa fa-search"></i>
+      </label>
+    </div>
+  </div>
+
+  <%= render 'shared/account' %>
+</div>

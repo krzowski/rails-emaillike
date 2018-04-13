@@ -1,0 +1,28 @@
+<div class="contacts-container main-wide-bar">
+  <div class="top-bar">
+
+    <div class="search-in-contacts">
+      <form class="search-form" action=" javascript:void(0);">      
+        <input id="search_contacts" class="search-input" type="text" placeholder="Search for a contact...">
+        <button class="search-button">
+          <i class="fa fa-search"></i>
+        </button>
+      </form>
+    </div>
+
+    <%= render 'shared/account' %>
+  </div>
+  <div class="contacts-table-container">
+    <table class="contacts-table">
+      <% @contacts.each do |contact| %>
+        <tr class="contacts-row">
+          <th class="contacts-col-name"><%= contact.name %></th>
+          <th class="contacts-col-from"><%= link_to "Messages from", correspondence_to_path(contact.name) %></th>
+          <th class="contacts-col-to"><%= link_to "Messages to", correspondence_from_path(contact.name) %></th>
+          <th class="contacts-col-full"><%= link_to "Full exchange", correspondence_path(contact.name) %></th>
+          <th class="contacts-col-delete"><%= link_to "Remove contact", contact_path(contact.name), method: :delete %></th>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+</div>

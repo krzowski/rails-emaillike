@@ -1,0 +1,117 @@
+<div class="email-options-bar top-bar">
+  <div class="email-activities">
+    <ul class="email-activities-icons">
+
+      <%= link_to to_trash_path(@email), method: :patch do %>
+        <li class="email-activity-icon" title="Move to trash"><i class="fa fa-trash-o"></i></li>
+      <% end %>
+
+      <%= link_to respond_path(@email) do %>
+        <li class="email-activity-icon" title="Reply"><i class="fa fa-reply"></i></li>
+      <% end %>
+
+      <%= link_to forward_path(@email) do %>
+        <li class="email-activity-icon" title="Forward"><i class="fa fa-share"></i></li>
+      <% end %>
+
+      <input type="checkbox" class="email-options-checkbox" id="email-options-toggle">
+      <label for="email-options-toggle" class="email-activity-icon">
+        <i class="fa-default fa fa-ellipsis-h"></i><i class="fa-hidden fa fa-chevron-up"></i>
+      </label>
+
+       <div class="email-options-hidden">
+        <% unless current_user.contacts.any? { |c| c.name == @email.username } %>
+          <li class="email-activity-option" title="Options">
+            <%= link_to contact_path(@email.username), method: :post do %>
+              <div><span>Add <%= @email.username %> to contacts</span></div>
+            <% end %>
+          </li>
+        <% end %>
+        <% unless session[:collection] == 'correspondence' %>
+          <li class="email-activity-option" title="Options">
+            <%= link_to correspondence_path(@email.username) do %>
+              <div><span>View all correspondence with <%= @email.username %></span></div>
+            <% end %>
+          </li>
+        <% end %>
+
+        <% if current_user.labels.any? %>
+          <input type="checkbox" class="email-label-checkbox" id="email-labels-toggle">
+          <label for="email-labels-toggle" id="email-change-label" class="email-activity-option"><%= @email.label ? 'Change' : "Assign" %> label<i class="fa-hidden fa fa-chevron-down email-label-icon"></i></label>
+          <div class="email-label-options">
+            <% current_user.labels.each_with_index do |label, i| %>
+              <% unless @email.label == label %>
+                <%= link_to change_label_path(eid: @email.id, lid: label.id), method: :post do %>
+                <div class="email-label-option email-labels-<%= i+1 %>" title="Options"><%= label.name %></div>
+                <% end %>
+              <% end %>
+            <% end %>
+            <% if @email.label %>
+              <%= link_to change_label_path(eid: @email.id, lid: -1), method: :post do %>
+              <div class="email-label-option" title="Options">Remove label</div>
+              <% end %>
+            <% end %>
+          </div>
+        <% else %>
+          <div class="email-activity-option email-labels-inactive" title="Options">Create label to assign one</div>
+        <% end %>
+
+      </div> 
+    </ul>
+  </div>
+
+  <input type="checkbox" name="expand-search" id="expand-search">
+  <div class="search-in-email">
+    <div class="search-form">
+      <input id="search_email_message" class="search-input" type="text" placeholder="Search in messsage...">
+      <label for="expand-search" class="search-button">
+        <i class="fa fa-chevron-up"></i><i class="fa fa-search"></i>
+      </label>
+    </div>
+  </div>
+
+  <%= render 'shared/account' %>
+</div>
+
+<div class="email-container main-bar">
+  <div class="email-received-navigation">
+    <div class="email-received-date">
+      <%= represent_date_of_email( @email.created_at ) %>
+    </div>
+    <ul class="email-received-nav">
+      <li id="prevEmail" class="email-received-prev">&#8249;
+      </li>
+      <li id="nextEmail" class="email-received-next">&#8250;
+      </li>
+    </ul>
+  </div>
+
+  <div class="email-container-overflow">
+
+    <div class="email-received-container">
+      <div class="email-received">
+        <% if @email.message_type == 'received' %>
+          <h6 class="email-received-people"><span class="email-received-person">From <span class="email-received-person"><%= @email.username %></span></h6>
+        <% elsif @email.message_type == 'sent' %>
+          <h6 class="email-received-people"><span class="email-received-person">To <span class="email-received-person"><%= @email.username %></span></h6>
+        <% end %>
+        <h3 class="email-received-subject"><%= @email.title %></h3>
+        <div class="email-received-message" id="email_message">
+          <%= @email.message %>
+        </div>
+      </div>
+    </div>
+
+    <div class="email-quick-response-container">
+      <%= form_for @email, method: :post, html: { class: "email-quick-response-form", id: "response_form" }, url: quick_email_path(@email) do |f| %>
+
+        <%= f.hidden_field :username, value: @email.username %>
+        <%= f.hidden_field :title, value: ("Re: " + @email.title) %>
+        <%= f.text_area :message, value: nil, class: "email-quick-response-input", placeholder: "Quick message..." %>
+
+        <%= f.submit "Send", class: "email-quick-response-button" %>
+      <% end %>
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,43 @@
+<div class="email-options-bar top-bar">
+  <div class="trash-activities">
+    <%= link_to from_trash_path(@email), method: :patch do %>
+      <button class="trash-recycle">Move back from trash</button>
+    <% end %>
+    <%= link_to email_path(@email), method: :delete do %>
+      <button class="trash-delete">Delete email</button>
+    <% end %>
+  </div>
+
+  <%= render 'shared/account' %>
+</div>
+
+<div class="email-container main-bar">
+  <div class="email-received-navigation">
+    <div class="email-received-date">
+      <%= represent_date_of_email( @email.created_at ) %>
+    </div>
+    <ul class="email-received-nav">
+      <li id="prevEmail" class="email-received-prev">&#8249;
+      </li>
+      <li id="nextEmail" class="email-received-next">&#8250;
+      </li>
+    </ul>
+  </div>
+
+  <div class="email-container-overflow">
+
+    <div class="email-received-container">
+      <div class="email-received">
+        <% if @email.message_type == 'received' %>
+          <h6 class="email-received-people"><span class="email-received-person">From <span class="email-received-person"><%= @email.username %></span></h6>
+        <% elsif @email.message_type == 'sent' %>
+          <h6 class="email-received-people"><span class="email-received-person">To <span class="email-received-person"><%= @email.username %></span></h6>
+        <% end %>
+        <h3 class="email-received-subject"><%= @email.title %></h3>
+        <div class="email-received-message" id="email_message">
+          <%= @email.message %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

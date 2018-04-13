@@ -1,0 +1,54 @@
+<div class="main-wide-bar">
+  <div class="top-bar">
+    <%= render 'shared/account' %>
+  </div>
+
+  <div class="manage-container main-bar">
+
+    <div class="manage-labels">
+      <h4>Labels:</h4>
+      <% if current_user.labels.any? %>
+        <% current_user.labels.each_with_index do |label, i| %>
+          <div class="labels-row">
+            <span class="labels-name labels-name-<%= i + 1 %>"><%= label.name %></span>
+            <span class="labels-delete"><%= link_to "Remove label", remove_label_path(label.id), method: :delete %></span>
+          </div>
+        <% end %>
+      <% else %>
+        <div class="labels-row">
+          No labels to manage
+        </div>
+      <% end %>
+    </div>
+
+    
+
+    <div class="manage-password">
+      <h4>Change Password:</h4>
+      <%= form_for(:user, url: manage_path, method: :patch) do |f| %>
+        <div class="password-row">
+          <%= f.label :current_password, "Current password: " %>
+          <%= f.password_field :current_password, class: 'manage-password-field' %>
+        </div>
+
+        <div class="password-row">
+          <%= f.label :password, "New password: "  %>
+          <%= f.password_field :password, class: 'manage-password-field' %>
+        </div>
+
+        <div class="password-row">
+          <%= f.label :password_confirmation, "Confirm new password: "  %>
+          <%= f.password_field :password_confirmation, class: 'manage-password-field' %>
+        </div>
+
+        <%= f.submit "Change Password", class: "manage-button manage-password-button" %>
+      <% end %>
+    </div>
+    
+
+    <div class="manage-delete-account">
+      <%= button_to "Delete Account", manage_path, method: :delete, class: 'manage-button manage-delete-button',data: { confirm: "This will permanently delete this account. Are you sure?" } %>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,68 @@
+<div class="navigation left-bar">
+
+  <div class="operations-navigation">
+    <div class="new-message top-bar">
+
+      <%= link_to new_email_path do %>
+        <div class="new-message-container">
+          <i class="fa fa-pencil-square-o"></i> <span class="new-message-text">New message</span>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="menu main-bar">
+      
+      <div class="email-navigation">
+        <ul class="email-navigation-list">
+          <%= link_to root_path do %>
+            <li class="email-navigation-item <%= active? 'received' %>">Inbox 
+            <span class="email-navigation-item-count"></span></li>
+          <% end %>
+          
+          <%= link_to sent_path do %>
+            <li class="email-navigation-item <%= active? 'sent' %>">Sent</li>
+          <% end %>
+
+          <%= link_to drafts_path do %>
+            <li class="email-navigation-item <%= active? 'drafts' %>">Drafts</li>
+          <% end %>
+
+          <%= link_to trash_path do %>
+            <li class="email-navigation-item <%= active? 'trash' %>">Trash</li>
+          <% end %>
+
+          <%= link_to contacts_path do %>
+            <li class="email-navigation-item <%= active? 'contacts' %>">Contacts</li>
+          <% end %>
+        </ul>
+      </div>
+
+      <div class="labels">
+        <h6 class="labels-header">Labels</h6>
+        <ul class="labels-list">
+          <% current_user.labels.each_with_index do |label, i| %>
+            <%= link_to labeled_path(label.name) do %>
+              <li class="labels-list-item labels-<%= i+1 %>">
+                <i class="fa fa-circle-o"></i> <span class="<%= (session[:collection] == 'label' && session[:label] == label.name) ? 'labels-desc-active' : 'label-desc'%>"><%= label.name %></span>
+              </li>
+            <% end %>
+          <% end %>
+          <% if current_user.labels.count < 5 %>
+            <li class="labels-list-item add-label-li">
+              <input type="checkbox" class="label-form-checkbox" id="label-form-checkbox">
+              <label for="label-form-checkbox" class="label-form-label"><i class="label-fa-show fa fa-plus"></i><i class="label-fa-hidden fa fa-chevron-up"></i><span class="add-label">Add</span></label>
+              <div class="label-form">
+                <%= form_tag('/label', method: :post) do %>
+                  <%= text_field_tag 'name', nil, class: 'label-form-input' %>
+                  <%= submit_tag 'Create label', class: "label-form-button" %>
+                <% end %>
+              </div>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+
+    </div>
+
+  </div>
+</div>

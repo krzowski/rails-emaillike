@@ -1,0 +1,20 @@
+<div class="account">
+  <div class="account-container">
+
+    <input type="checkbox" name="account-checkbox" id="account-checkbox">
+    <label for="account-checkbox">
+      <div class="account-user-icon"><i class="fa fa-user-circle"></i></div>
+
+      <div class="account-user-number"><i class="fa fa-chevron-down"></i></div>
+    </label>
+    <div class="account-hidden">
+      <div class="account-option">
+        <%= link_to "Settings", manage_path %>
+      </div>
+      
+      <div class="account-option">
+        <%= link_to "Log out", logout_path, method: :delete %>
+      </div>
+    </div>
+  </div>
+</div>

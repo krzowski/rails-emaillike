@@ -1,0 +1,21 @@
+<%= form_for @draft, url: { controller: "drafts", action: "update" }, method: :patch, html: { class: "new-email-form" } do |f| %>
+
+    
+  <div class="new-email-form-input">
+    <%= f.label :username, "To", class: "new-email-form-label" %>
+    <%= f.text_field :username, :autocomplete => :off %>
+  </div>
+  <div class="new-email-form-input">
+    <%= f.label :title, "Title", class: "new-email-form-label" %>
+    <%= f.text_field :title, autocomplete: :off %>
+  </div>        
+  <div class="new-email-form-input">
+    <%= f.label :message %>
+    <%= f.text_area :message %>
+  </div>        
+
+  <%= f.submit "Send message", class: "new-email-form-button", name: "send_draft" %>
+  <%= f.submit "Update draft", class: "new-email-form-button new-email-draft-button" %>
+  <%= link_to "Delete draft", @draft, method: :delete, class: "new-email-form-button new-email-draft-delete-button" %>
+
+<% end %>

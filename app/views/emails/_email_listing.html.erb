@@ -1,0 +1,43 @@
+<div class="email-list-section main-middle-bar">
+  <div class="email-list-container">
+    <div class="sorting-selection top-bar">
+      <div class="sorting-container">
+        <input type="checkbox" class="sorting-toggle" id="sorting-toggle">
+        <label for="sorting-toggle" class="sorting-toggle-label">Sort by 
+          <span class="sorting-selector">
+            <%= session[:sorting] == 'newest' ? "Date - newest" : "Date - oldest" %>
+          </span>
+          <i class="fa fa-chevron-down sorting-chevron-icon" aria-hidden="true"></i>
+        </label>
+        <div class="sorting-hidden-nav">
+          <%= link_to_if_inactive_sort 'newest' %>
+          <%= link_to_if_inactive_sort 'oldest' %>
+        </div>
+      </div>
+    </div>
+
+    <div id="emailListScroll" class="email-list main-bar">
+
+    <% @emails.each_with_index do |email, i| %>
+      <%= link_to email_path(email), method: :get, remote: true, id: "emailThumb#{i+1}", class: "email-thumb-link" do %>
+        <div class="email-thumb-container <%= "email-thumb-active" if !@email.nil? && email.id == @email.id %>">
+          <div class="status-icons"></div>
+          <div class="email-descriptions">
+            <h4><% if session[:collection] == 'correspondence' %>
+              <%= email.message_type == 'sent' ? 'To:' : 'From:' %> 
+            <% end %><%= email.username %></h4>
+            <span class="date"><%= represent_date_of_email(email.created_at) %>
+              <% if email.label %>
+                <span class="email-label label<%= current_user.labels.find_index(email.label) + 1 %>"></span>
+              <% end %>
+            </span>
+            <h5><%= email.title %></h5>
+            <p><%= email.message[0..30] %></p>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+    </div>
+
+  </div>
+</div>

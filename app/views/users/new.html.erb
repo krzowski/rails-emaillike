@@ -1,0 +1,38 @@
+  <div class="guest-container">
+    <div class="guest-description">
+      <h2>Email-like</h2>
+      <p>a simpler message exchange</p>
+    </div>
+
+    <div class="guest-login">
+      <div class="guest-login-description">Sign in</div>
+      <div class="guest-form">
+        <%= form_for @user, url: signup_path do |f| %>
+
+
+            <div class="guest-form-divider">
+              <%= f.label :username %>
+              <%= f.text_field :username %>
+            </div>
+          
+            <div class="guest-form-divider">
+              <%= f.label :password %>
+              <%= f.password_field :password %>
+            </div>
+
+            <div class="guest-form-divider">
+              <%= f.label :password_confirmation %>
+              <%= f.password_field :password_confirmation %>
+            </div>
+
+            <div class="guest-form-divider">
+              <%= f.submit "Create my account", class: "btn btn-primary" %>
+            </div>
+        <% end %>
+      </div>
+      <div class="guest-signing">
+        <p>Have an account already? <%= link_to "Sign in!", root_path %></p>
+      </div>
+    </div>
+
+  </div>
