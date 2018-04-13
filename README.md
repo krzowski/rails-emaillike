@@ -1,31 +1,48 @@
-== Email-like 
+# Email-like - an email client imitation
 
-A project intented to simulate sending and receiving text messages as an email client. 
+## about the project
+Email-like is a Rails application inspired by a [design concept by Jakub Antalik from dribbble](https://dribbble.com/shots/2359374-Mail-client-app). It is intended to emulate sending and receiving email-like text messages.
 
-UI based on Jakub Antalik's concept https://dribbble.com/shots/2359374-Mail-client-app
+Email-like functionality includes:
 
-
-
-Login with test credentials: 
-- username: testuser
-- password: testpassword
-
-
-
-The main functionality is:
-- sending and receiving emails
-- forwarding and responding to received emails
-- assigning labels to emails
-- saving emails in creation as drafts
-- adding contacts to browse past message exchange
-- other CRUD operations on email/label/draft/user/contact models
+* assigning labels to messages
+* saving messages in creation as drafts
+* putting deleted emails in trash before a final delete
+* adding contacts to easily browse past message exchanges
+* forwarding and responding options for text messages
+* other CRUD operations on email/label/draft/user/contact models
 
 
+Email-like was developed with use of:
 
-Things used in creation:
-* authentication with has_secure_password
-* ajax responses
-* tests with Rspec/Capybara/FactoryBot
-* JS and JQuery to provide interaction
-* mark.js for searching for a phrase in a message
+* authentication with bcrypt and has_secure_password
+* jquery + ajax (by remote: true)
+* **tests with Rspec/Capybara/FactoryBot**
+* mark.js for searching for a phrase in a message and highlightying it
 * fontawesome for icons
+
+
+## try it out
+visit [project's website](http://toupdate) and log in with test credentials:
+
+* username: testuser, password: testpassword
+
+or create your own account!
+
+
+## local setup
+download the code:
+
+    git clone https://github.com/krzowski/rails-emaillike.git
+
+navigate to root folder and install dependencies with:
+
+    cd rails-emaillike/ && bundle update
+
+run database migrations:
+
+    rake db:migrate
+
+start server with:
+
+    rails s
