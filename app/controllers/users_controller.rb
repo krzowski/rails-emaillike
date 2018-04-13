@@ -13,10 +13,11 @@ class UsersController < ApplicationController
       log_in @user
       redirect_to root_path
     else
-      flash[:danger] = ''
-      flash[:danger] << "Username is taken. "                              if @user.errors.messages[:username]
-      flash[:danger] << "Password must be at least 6 characters long. "    if @user.errors.messages[:password]
-      flash[:danger] << "Password confirmation didn't match the password." if @user.errors.messages[:password_confirmation]
+      flash.now[:danger] = ''
+      flash.now[:danger] << "Username can't be blank. "                         if @user.errors.messages[:username] == ["can't be blank"]
+      flash.now[:danger] << "Username is taken. "                               if @user.errors.messages[:username] == ["has already been taken"]
+      flash.now[:danger] << "Password must be at least 6 characters long. "     if @user.errors.messages[:password]
+      flash.now[:danger] << "Password confirmation didn't match the password. " if @user.errors.messages[:password_confirmation]
       render :new
     end
   end
