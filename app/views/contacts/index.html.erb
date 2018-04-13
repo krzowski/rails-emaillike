@@ -17,8 +17,8 @@
       <% @contacts.each do |contact| %>
         <tr class="contacts-row">
           <th class="contacts-col-name"><%= contact.name %></th>
-          <th class="contacts-col-from"><%= link_to "Messages from", correspondence_to_path(contact.name) %></th>
-          <th class="contacts-col-to"><%= link_to "Messages to", correspondence_from_path(contact.name) %></th>
+          <th class="contacts-col-from"><%= link_to "Messages from", correspondence_from_path(contact.name) %></th>
+          <th class="contacts-col-to"><%= link_to "Messages to", correspondence_to_path(contact.name) %></th>
           <th class="contacts-col-full"><%= link_to "Full exchange", correspondence_path(contact.name) %></th>
           <th class="contacts-col-delete"><%= link_to "Remove contact", contact_path(contact.name), method: :delete %></th>
         </tr>

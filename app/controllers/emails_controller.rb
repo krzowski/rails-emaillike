@@ -148,7 +148,7 @@ class EmailsController < ApplicationController
   end
 
   def destroy
-    current_user.emails.find(params[:id]).destroy
+    current_user.emails.trash.find(params[:id]).destroy
     flash[:danger] = "Message was deleted"
     redirect_to trash_path
   end
