@@ -182,6 +182,28 @@ describe EmailsController do
         it "doesn't change email table in database" do
           expect{ post :create, email: attributes_for(:email), save_draft: true }.not_to change(Email, :count)
         end
+
+        context "with valid data" do
+          it "creates a database entry" do
+            expect { post :create, email: attributes_for(:email), save_draft: true }.to change(Draft, :count).by(1)
+          end
+          it "redirects to newly created draft's path" do
+            post :create, email: attributes_for(:email), save_draft: true
+            expect(response).to redirect_to draft_path(Draft.last.id)
+          end
+        end
+  
+        context "with invalid data" do
+          it "doesn't create a database entry" do
+            expect { post :create, email: attributes_for(:email, title: nil), save_draft: true }.to_not change(Draft, :count)  
+          end
+          it "renders emails/new template" do
+            session[:collection] = 'new_message'  
+            post :create, email: attributes_for(:email, title: nil), save_draft: true
+            expect(response).to render_template('emails/new')
+          end
+        end
+
       end
     end
 
@@ -229,9 +251,11 @@ describe EmailsController do
 
       describe 'DELETE #destroy' do 
         it 'removes a database entry' do
-          expect{ delete :destroy, id: @email1 }.to change(Email, :count).by(-1)
+          @email1.update_attributes(trash: true)
+          expect{ delete :destroy, id: @email1 }.to change(Email.trash, :count).by(-1)
         end
         it 'redirects to trash' do
+          @email1.update_attributes(trash: true)
           delete :destroy, id: @email1
           expect(response).to redirect_to(trash_path)
         end

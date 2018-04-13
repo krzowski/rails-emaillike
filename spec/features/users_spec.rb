@@ -49,7 +49,7 @@ feature "User login/logout" do
     click_link "Log out"
 
     within ".guest-description" do
-      expect(page).to have_content("a simpler message exchange")
+      expect(page).to have_content("a simpler email exchange")
     end
   end
 end

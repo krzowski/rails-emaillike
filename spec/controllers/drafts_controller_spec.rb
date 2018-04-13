@@ -21,29 +21,6 @@ describe DraftsController do
       end
     end
 
-    describe "POST #create" do
-      context "with valid data" do
-        it "creates a database entry" do
-          expect { post :create, draft: attributes_for(:draft) }.to change(Draft, :count).by(1)
-        end
-        it "redirects to newly created draft's path" do
-          post :create, draft: attributes_for(:draft)
-          expect(response).to redirect_to draft_path(Draft.last.id)
-        end
-      end
-
-      context "with invalid data" do
-        it "doesn't create a database entry" do
-          expect { post :create, draft: attributes_for(:draft, title: nil) }.to_not change(Draft, :count)  
-        end
-        it "renders emails/new template" do
-          session[:collection] = 'new_message'  
-          post :create, draft: attributes_for(:draft, title: nil)
-          expect(response).to render_template('emails/new')
-        end
-      end
-    end
-
     describe "GET #show" do
       it "assigns demanded draft to @draft" do
         draft1 = create(:draft, user_id: @user.id)
@@ -145,13 +122,6 @@ describe DraftsController do
     describe 'GET #index' do
       it 'requires login' do
         get :index
-        expect(response).to render_template('users/guest')
-      end
-    end
-
-    describe "POST #create" do
-      it 'requires login' do
-        post :create, attributes_for(:draft)
         expect(response).to render_template('users/guest')
       end
     end
