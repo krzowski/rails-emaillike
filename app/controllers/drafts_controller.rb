@@ -5,17 +5,6 @@ class DraftsController < ApplicationController
   def index
   end
 
-  def create
-    draft = current_user.drafts.new(draft_params)
-    if draft.save
-      redirect_to draft_path(draft)
-    else
-      flash.now[:danger] = "Draft must contain name and title"
-      @email = draft
-      render 'emails/new'
-    end
-  end
-
   def show
     @draft = @drafts.find(params[:id])
     respond_to do |format|

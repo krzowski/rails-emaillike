@@ -58,7 +58,14 @@ class EmailsController < ApplicationController
 
   def create
     if params[:save_draft]
-      redirect_to new_draft_path( draft: email_params )
+      draft = current_user.drafts.new(draft_params)
+      if draft.save
+        redirect_to draft_path( draft )
+      else
+        @email = current_user.emails.new(email_params)
+        flash.now[:danger] = "Draft must contain an adressee and a title"
+        render 'new'
+      end
     else
       @email = current_user.emails.new(email_params)
       if @email.valid?
@@ -155,6 +162,10 @@ class EmailsController < ApplicationController
 
   private 
     def email_params
+      params.require(:email).permit(:username, :title, :message)
+    end
+
+    def draft_params
       params.require(:email).permit(:username, :title, :message)
     end
 

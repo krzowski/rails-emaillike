@@ -54,8 +54,6 @@ Rails.application.routes.draw do
 
   # draft operations
   get    '/drafts',          to: 'drafts#index'
-    # match :get to accomodate for saving draft in the new_email form
-  match  '/new_draft',       to: 'drafts#create',      via: [:get, :post] 
   get    '/draft/:id',       to: 'drafts#show',        as: 'draft'
   patch  '/draft/:id',       to: 'drafts#update'
   delete '/draft/:id',       to: 'drafts#destroy'
