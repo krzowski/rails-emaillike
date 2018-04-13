@@ -42,10 +42,6 @@ $(document).on('turbolinks:load', function() {
     $('.alert').hide();
   });
 
-  if ( $('.guest-description p').length) {
-    var animatedText = $('.guest-description p').text();
-    typeText(animatedText, 0);
-  }
 });
 
 
@@ -117,13 +113,3 @@ function markContact() {
     }
   });
 };
-
-function typeText(text, i) {
-  if (i < (text.length)) {
-    $('.guest-description p').html(text.substring(0, i+1));
-    i++;
-    setTimeout(function() {
-      typeText(text, i)
-    }, 100);
-  }
-}
