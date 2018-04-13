@@ -18,12 +18,12 @@ Email-like was developed with use of:
 * authentication with bcrypt and has_secure_password
 * jquery + ajax (by remote: true)
 * **tests with Rspec/Capybara/FactoryBot**
-* mark.js for searching for a phrase in a message and highlightying it
+* mark.js for searching for a phrase in a message and highlighting it
 * fontawesome for icons
 
 
 ## try it out
-visit [project's website](http://toupdate) and log in with test credentials:
+visit [project's website](http://emaillike.herokuapp.com/)(may take up to 10s to wake up from sleep) and log in with test credentials:
 
 * username: testuser, password: testpassword
 
