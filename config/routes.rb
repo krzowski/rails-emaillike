@@ -53,10 +53,7 @@ Rails.application.routes.draw do
   patch  '/from_trash/:id',  to: 'emails#move_from_trash', as: 'from_trash'
 
   # draft operations
-  get    '/drafts',          to: 'drafts#index'
-  get    '/draft/:id',       to: 'drafts#show',        as: 'draft'
-  patch  '/draft/:id',       to: 'drafts#update'
-  delete '/draft/:id',       to: 'drafts#destroy'
+  resources :drafts, only: [:index, :show, :update, :destroy]
 
   # labels management
   post   'label',            to: 'labels#create',      as: 'label'
