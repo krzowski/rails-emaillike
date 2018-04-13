@@ -10,7 +10,11 @@
 # seed users
 testuser = User.create(username: "testuser", password: "testpassword", password_confirmation: "testpassword")
 
-5.times { |i| User.create(username: "User-#{i}", password: "qwerty", password_confirmation: "qwerty") }
+User.create(username: "John", password: "qwertyui", password_confirmation: "qwertyui")
+User.create(username: "Michael", password: "qwertyui", password_confirmation: "qwertyui") 
+User.create(username: "Jack Jaques", password: "qwertyui", password_confirmation: "qwertyui") 
+User.create(username: "Jean", password: "qwertyui", password_confirmation: "qwertyui") 
+User.create(username: "Mark", password: "qwertyui", password_confirmation: "qwertyui") 
 
 
 # seed labels
@@ -23,7 +27,7 @@ Label.create(name: "Travel", user_id: testuser.id)
 15.times { |i| Email.create(
   username: User.all[-(rand(5) + 1)].username,
   title: "message-#{i}",
-  message: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error vero qui labore vitae nesciunt! Esse maiores at sunt cupiditate reiciendis est laudantium ea. Repellat ipsum doloremque impedit atque corporis. Tempora.",
+  message: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error vero qui labore vitae nesciunt! Esse maiores at sunt cupiditate reiciendis est laudantium ea. Repellat ipsum doloremque impedit atque corporis. Tempora. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error vero qui labore vitae nesciunt! Esse maiores at sunt cupiditate reiciendis est laudantium ea. Repellat ipsum doloremque impedit atque corporis. Tempora.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error vero qui labore vitae nesciunt! Esse maiores at sunt cupiditate reiciendis est laudantium ea. Repellat ipsum doloremque impedit atque corporis. Tempora.",
   user_id: testuser.id,
   label_id: rand(3) + 1,
   interlocutor_id: User.all[-(rand(5) + 1)],
@@ -34,7 +38,7 @@ Label.create(name: "Travel", user_id: testuser.id)
 15.times { |i| Email.create(
   username: User.all[-(rand(5) + 1)].username,
   title: "message-#{i}",
-  message: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error vero qui labore vitae nesciunt! Esse maiores at sunt cupiditate reiciendis est laudantium ea. Repellat ipsum doloremque impedit atque corporis. Tempora.",
+  message: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error vero qui labore vitae nesciunt! Esse maiores at sunt cupiditate reiciendis est laudantium ea. Repellat ipsum doloremque impedit atque corporis. Tempora. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error vero qui labore vitae nesciunt! Esse maiores at sunt cupiditate reiciendis est laudantium ea. Repellat ipsum doloremque impedit atque corporis. Tempora.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error vero qui labore vitae nesciunt! Esse maiores at sunt cupiditate reiciendis est laudantium ea. Repellat ipsum doloremque impedit atque corporis. Tempora.",
   user_id: testuser.id,
   label_id: rand(3) + 1,
   interlocutor_id: User.all[-(rand(5) + 1)],
@@ -43,7 +47,7 @@ Label.create(name: "Travel", user_id: testuser.id)
 
 
 # assign some emails to trash 
-5.times { Email.all[rand(Email.count)].update_attribute(:trash, true) }
+6.times { Email.all[rand(Email.count)].update_attribute(:trash, true) }
 
 
 # seed drafts
