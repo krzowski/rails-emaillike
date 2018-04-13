@@ -60,4 +60,4 @@ Label.create(name: "Travel", user_id: testuser.id)
 
 
 # add contacts
-User.all[-1..-5].each { |c| Contact.create(user_id: testuser.id, name: c.username) }
+User.all[-5..-1].each { |c| Contact.create(user_id: testuser.id, name: c.username) }
