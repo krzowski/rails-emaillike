@@ -1,7 +1,7 @@
 # Email-like - an email client imitation
 
 ## about the project
-Email-like is a Rails application inspired by a [design concept by Jakub Antalik from dribbble](https://dribbble.com/shots/2359374-Mail-client-app). It is intended to emulate sending and receiving email-like text messages.
+Email-like is a Rails application inspired by a [design concept by Jakub Antalik from dribbble](https://dribbble.com/shots/2359374-Mail-client-app). It is intended to simulate sending and receiving email-like text messages.
 
 Email-like functionality includes:
 
